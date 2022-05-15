@@ -1,0 +1,21 @@
+---
+version: "2.1"
+services:
+  webhook:
+    image: jancubillan/webhook
+    container_name: webhook
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Singapore
+    volumes:
+      - ./config-webhook:/config
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+    command: -verbose -hooks=hooks.json -hotreload
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "6"
+        max-size: "50m"
