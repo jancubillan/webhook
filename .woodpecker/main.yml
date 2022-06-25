@@ -8,3 +8,4 @@ pipeline:
       password:
         from_secret: nexus_password
       repo: registry.rogescus.com/jancubillan/webhook
+      tag: [latest, "${CI_COMMIT_TAG}"]
