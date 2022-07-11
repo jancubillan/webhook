@@ -1,6 +1,6 @@
 FROM rockylinux:latest
 
-ENV SERIAL=95
+ENV SERIAL=99
 
 RUN yum clean all && \
     yum makecache && \
@@ -14,7 +14,7 @@ RUN yum clean all && \
 
 WORKDIR /config
 
-EXPOSE 9500
+EXPOSE 9900
 
 ENTRYPOINT ["webhook"]
 
