@@ -1,6 +1,6 @@
 FROM rockylinux:9
 
-ENV SERIAL=268
+ENV SERIAL=269
 
 RUN yum clean all && \
     yum makecache && \
@@ -8,6 +8,8 @@ RUN yum clean all && \
     yum install -y wget tar && \
     wget -O /tmp/webhook-linux-amd64.tar.gz https://github.com/adnanh/webhook/releases/download/2.8.0/webhook-linux-amd64.tar.gz && \
     cd /tmp && \
+    pwd && \
+    ls -lh && \
     tar xvf /tmp/webhook-linux-amd64.tar.gz && \
     cp webhook-linux-amd64/webhook /usr/local/bin/ && \
     rm -rf webhook-linux-amd64 webhook-linux-amd64.tar.gz && \
