@@ -3,6 +3,13 @@
     "id": "simple-one",
     "execute-command": "/path/to/command.sh",
     "response-message": "Executing simple webhook...",
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "string",
+        "name": "-e"
+      }
+    ],
     "trigger-rule":
     {
       "match":
