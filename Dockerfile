@@ -1,6 +1,6 @@
 FROM rockylinux:9 AS build
 
-ENV SERIAL=395
+ENV SERIAL=396
 
 RUN yum clean all && \
     yum makecache && \
@@ -13,9 +13,9 @@ RUN yum clean all && \
 
 FROM rockylinux:9-minimal
 
-RUN yum clean all && \
-    yum makecache && \
-    yum update -y
+RUN microdnf clean all && \
+    microdnf makecache && \
+    microdnf update -y
 
 COPY --from=build /usr/local/bin/webhook /usr/local/bin/webhook
 
