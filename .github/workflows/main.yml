@@ -29,4 +29,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/webhook:latest
+          tags: |
+            ${{ secrets.DOCKER_HUB_USERNAME }}/webhook:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/webhook:${GITHUB_SHA}
