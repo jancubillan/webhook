@@ -1,6 +1,6 @@
 FROM rockylinux:9 AS build
 
-ENV SERIAL=590
+ENV SERIAL=591
 
 RUN yum clean all && \
     yum makecache && \
