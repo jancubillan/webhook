@@ -1,6 +1,6 @@
 FROM rockylinux:9 AS build
 
-ENV SERIAL=1320
+ENV SERIAL=1321
 
 RUN yum clean all && \
     yum makecache && \
@@ -21,7 +21,7 @@ COPY --from=build /usr/local/bin/webhook /usr/local/bin/webhook
 
 WORKDIR /config
 
-EXPOSE 13200
+EXPOSE 13210
 
 ENTRYPOINT ["webhook"]
 
