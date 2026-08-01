@@ -1,6 +1,7 @@
 steps:
   build:
     image: woodpeckerci/plugin-docker-buildx
+    privileged: true
     settings:
       registry: https://registry.rogescus.com
       username:
@@ -9,3 +10,5 @@ steps:
         from_secret: nexus_password
       repo: registry.rogescus.com/jancubillan/webhook
       tag: [latest, "${CI_COMMIT_SHA}"]
+    when:
+      event: [push, manual]
