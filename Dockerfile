@@ -1,6 +1,6 @@
 FROM rockylinux:9 AS build
 
-ENV SERIAL=1595
+ENV SERIAL=1596
 
 RUN yum clean all && \
     yum makecache && \
@@ -9,7 +9,7 @@ RUN yum clean all && \
     tar xvf webhook-linux-amd64.tar.gz && \
     cp webhook-linux-amd64/webhook /usr/local/bin/ && \
     rm -rf webhook-linux-amd64 webhook-linux-amd64.tar.gz && \
-    chmod +x /usr/local/bin/webhooK
+    chmod +x /usr/local/bin/webhook
 
 FROM rockylinux:9-minimal
 
