@@ -1,9 +1,9 @@
-pipeline:
+steps:
   build:
     image: woodpeckerci/plugin-docker-buildx
     settings:
       registry: https://registry.rogescus.com
-      username: 
+      username:
         from_secret: nexus_username
       password:
         from_secret: nexus_password
