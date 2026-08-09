@@ -13,4 +13,4 @@ steps:
       - make -f Makefile.woodpecker release
     when:
       - event: [push, manual]
-        branch: feat/makefile-woodpecker-integration
+        branch: main
