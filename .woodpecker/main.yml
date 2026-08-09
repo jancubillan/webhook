@@ -1,14 +1,16 @@
 steps:
   build:
-    image: woodpeckerci/plugin-docker-buildx
-    privileged: true
-    settings:
-      registry: https://registry.rogescus.com
-      username:
+    image: docker:27-cli
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      NEXUS_USERNAME:
         from_secret: nexus_username
-      password:
+      NEXUS_PASSWORD:
         from_secret: nexus_password
-      repo: registry.rogescus.com/jancubillan/webhook
-      tag: [latest, "${CI_COMMIT_SHA}"]
+    commands:
+      - apk add --no-cache make
+      - make -f Makefile.woodpecker release
     when:
-      event: [push, manual]
+      - event: [push, manual]
+        branch: main
