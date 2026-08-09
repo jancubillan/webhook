@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - 'feat/makefile-integration'
+      - 'main'
   workflow_dispatch:
 
 jobs:
