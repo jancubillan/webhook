@@ -1,0 +1,22 @@
+REGISTRY ?= registry.rogescus.com
+REPO ?= $(REGISTRY)/jancubillan/webhook
+COMMIT_SHA ?= $(CI_COMMIT_SHA)
+
+.PHONY: all login build push release
+
+all: release
+
+login:
+	@echo "$$NEXUS_PASSWORD" | docker login $(REGISTRY) -u "$$NEXUS_USERNAME" --password-stdin
+
+build:
+	docker buildx build \
+		--tag $(REPO):latest \
+		--tag $(REPO):$(COMMIT_SHA) \
+		.
+
+push:
+	docker push $(REPO):latest
+	docker push $(REPO):$(COMMIT_SHA)
+
+release: login build push
