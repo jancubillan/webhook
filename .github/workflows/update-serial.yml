@@ -30,7 +30,7 @@ jobs:
           git_committer_email: ${{ secrets.GIT_COMMITTER_EMAIL }}
 
       - name: Update Serial via Makefile
-        run: make update-serial
+        run: make -f Makefile.commit update-serial
 
       - name: Commit and Push changes via Makefile
-        run: make commit-push
+        run: make -f Makefile.commit commit-push
