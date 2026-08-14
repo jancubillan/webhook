@@ -1,0 +1,36 @@
+name: Update Dockerfile Serial
+
+on:
+  schedule:
+    # 01:09 UTC translates to 09:09 AM UTC+8
+    - cron: '9 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Import GPG key and configure Git
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_config_global: true
+          git_committer_name: ${{ secrets.GIT_COMMITTER_NAME }}
+          git_committer_email: ${{ secrets.GIT_COMMITTER_EMAIL }}
+
+      - name: Update Serial via Makefile
+        run: make update-serial
+
+      - name: Commit and Push changes via Makefile
+        run: make commit-push
