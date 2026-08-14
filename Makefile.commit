@@ -1,0 +1,26 @@
+# Makefile
+SHELL := /bin/bash
+.PHONY: update-serial commit-push
+
+# Variables can be overridden via environment variables
+DOCKERFILE_PATH ?= Dockerfile
+GIT_BRANCH ?= main
+
+update-serial:
+	@set -euo pipefail; \
+	OLD_SERIAL=$$(awk -F= '/SERIAL/{print $$2}' "$(DOCKERFILE_PATH)"); \
+	NEW_SERIAL=$$((OLD_SERIAL + 1)); \
+	sed -i "s|SERIAL=$${OLD_SERIAL}|SERIAL=$${NEW_SERIAL}|" "$(DOCKERFILE_PATH)"; \
+	echo "Successfully updated serial from $${OLD_SERIAL} to $${NEW_SERIAL}."
+
+commit-push:
+	@set -euo pipefail; \
+	# Idempotency check: Exit cleanly if the Makefile didn't change anything \
+	if git diff --exit-code "$(DOCKERFILE_PATH)" > /dev/null; then \
+		echo "No changes detected in $(DOCKERFILE_PATH). Exiting."; \
+		exit 0; \
+	fi; \
+	git add "$(DOCKERFILE_PATH)"; \
+	# The -S flag enforces GPG signing \
+	git commit -S -m "update serial"; \
+	git push origin "$(GIT_BRANCH)"
